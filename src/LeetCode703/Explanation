@@ -1,0 +1,3 @@
+1.Java中用PriorityQueue可以模拟最小堆
+2.Java中Comparator默认是升序，return o1 - o2;降序需改成 return o2 - o1
+3.求第K个最大值等价于求序列只有k个值时的最小值（满足最小堆）
