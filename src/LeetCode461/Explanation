@@ -1,0 +1,2 @@
+1.Integer类有包含将String解析成int，将int变为二值码String以及计算int的二进制表示中1的个数的函数
+2.String也包含将int、char等值变为String的方法（valueOf）
