@@ -1,0 +1,1 @@
+1.删除头节点的操作应该是head = head.next而不是head = null
