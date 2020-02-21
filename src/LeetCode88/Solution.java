@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int[] nums1Copy = Arrays.copyOf(nums1, m + n);
+        int[] nums1Copy = Arrays.copyOf(nums1, m);
         int p = 0;
         int q = 0;
         int count = 0;
