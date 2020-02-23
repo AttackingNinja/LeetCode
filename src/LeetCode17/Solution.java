@@ -7,22 +7,25 @@ import java.util.Map;
 
 public class Solution {
     String digits;
+    StringBuilder stringBuilder;
     Map<Character, String> map;
     List<String> results;
 
-    void backtrack(int level, int index, String curResult) {
-        if (level == digits.length() - 1) {
-            String result = curResult + map.get(digits.charAt(level)).charAt(index);
-            results.add(result);
+    void backtrack(int level) {
+        if (level == digits.length()) {
+            results.add(stringBuilder.toString());
             return;
         }
-        for (int i = 0; i < map.get(digits.charAt(level + 1)).length(); i++) {
-            backtrack(level + 1, i, curResult + map.get(digits.charAt(level)).charAt(index));
+        for (int i = 0; i < map.get(digits.charAt(level)).length(); i++) {
+            stringBuilder.append(map.get(digits.charAt(level)).charAt(i));
+            backtrack(level + 1);
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
     }
 
     public List<String> letterCombinations(String digits) {
         this.digits = digits;
+        stringBuilder = new StringBuilder();
         results = new LinkedList<>();
         map = new HashMap<>();
         map.put('2', "abc");
@@ -34,9 +37,7 @@ public class Solution {
         map.put('8', "tuv");
         map.put('9', "wxyz");
         if (digits.length() != 0) {
-            for (int i = 0; i < map.get(digits.charAt(0)).length(); i++) {
-                backtrack(0, i, "");
-            }
+            backtrack(0);
         }
         return results;
     }
