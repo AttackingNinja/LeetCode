@@ -31,9 +31,4 @@ public class Solution {
         }
         return result;
     }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        System.out.println(solution.maxProfit(2, new int[]{2, 1, 2, 0, 1}));
-    }
 }
