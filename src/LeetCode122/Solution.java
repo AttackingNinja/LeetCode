@@ -35,9 +35,8 @@ public class Solution {
     }
 
     int maxProfitByDP(int[] prices) {
-        if (prices.length < 2)
-            return 0;
-        else {
+        int result = 0;
+        if (prices.length != 0) {
 //            定义状态d[i][j],d[i][0]代表i天不持有股票的最大收益,d[i][1]代表i天持有股票的最大收益
             int[][] dp = new int[prices.length][2];
 //            初始状态
@@ -48,8 +47,9 @@ public class Solution {
                 dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
                 dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
             }
-            return dp[prices.length - 1][0];
+            result = dp[prices.length - 1][0];
         }
+        return result;
     }
 
     public static void main(String args[]) {
