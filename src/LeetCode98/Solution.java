@@ -1,6 +1,6 @@
 package LeetCode98;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 class TreeNode {
@@ -16,53 +16,42 @@ class TreeNode {
 public class Solution {
     boolean result;
 
-    void dfsByList(TreeNode node, List<Integer> list) {
-        if (node == null)
-            return;
-        dfsByList(node.left, list);
-        if (list.size() != 0 && node.val <= list.get(list.size() - 1)) {
-            result = false;
-            return;
+    void dfs(TreeNode node, List<Integer> list) {
+        if (result) {
+            if (node == null) {
+                return;
+            }
+            dfs(node.left, list);
+            if (list.size() != 0 && node.val <= list.get(list.size() - 1)) {
+                result = false;
+                return;
+            }
+            list.add(node.val);
+            dfs(node.right, list);
         }
-        list.add(node.val);
-        dfsByList(node.right, list);
     }
 
-    public boolean isValidBSTByList(TreeNode root) {
+    void dfs(TreeNode node, Integer lower, Integer upper) {
+        if (result) {
+            if (node == null) {
+                return;
+            }
+            if (lower != null && node.val <= lower) {
+                result = false;
+                return;
+            }
+            if (upper != null && node.val >= upper) {
+                result = false;
+                return;
+            }
+            dfs(node.left, lower, node.val);
+            dfs(node.right, node.val, upper);
+        }
+    }
+
+    public boolean isValidBST(TreeNode root) {
         result = true;
-        if (root != null) {
-            List<Integer> list = new LinkedList<>();
-            dfsByList(root, list);
-        }
-        return result;
-    }
-
-    void dfsByBoundary(TreeNode node, Integer lower, Integer upper) {
-        if (node == null)
-            return;
-        if (node.left != null && node.left.val >= node.val) {
-            result = false;
-            return;
-        }
-        if (node.right != null && node.right.val <= node.val) {
-            result = false;
-            return;
-        }
-        if (lower != null && node.val <= lower) {
-            result = false;
-            return;
-        }
-        if (upper != null && node.val >= upper) {
-            result = false;
-            return;
-        }
-        dfsByBoundary(node.left, lower, node.val);
-        dfsByBoundary(node.right, node.val, upper);
-    }
-
-    public boolean isValidBSTByBoundary(TreeNode root) {
-        result = true;
-        dfsByBoundary(root, null, null);
+        dfs(root, new ArrayList<>());
         return result;
     }
 }
