@@ -1,65 +1,58 @@
 package LeetCode103;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class Solution {
     static class TreeNode {
         TreeNode(int x) {
             val = x;
         }
+
         int val;
         TreeNode left;
         TreeNode right;
     }
+
     public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> result = new LinkedList<>();
-        List<Integer> list = new LinkedList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        Queue<TreeNode> queue1 = new LinkedList<>();
-        Queue<TreeNode> queue2 = new LinkedList<>();
-        boolean directionLeft = true;
-        if(root == null){
-            return result;
-        }
-        queue1.offer(root);
-        while (!queue1.isEmpty()){
-            TreeNode p = queue1.poll();
-            if(directionLeft){
-                list.add(p.val);
-            }
-            else {
-                stack.add(p);
-            }
-            if(p.left != null)
-                queue2.offer(p.left);
-            if(p.right != null)
-                queue2.offer(p.right);
-            if(queue1.isEmpty()){
-                if(directionLeft)
-                    directionLeft = false;
-                else {
-                    directionLeft = true;
-                    while (!stack.empty()){
-                        list.add(stack.pop().val);
+        if (root != null) {
+            List<Integer> list = new LinkedList<>();
+            //从右向左false，从左向右true
+            boolean direction = true;
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.add(root);
+            while (!queue.isEmpty()) {
+                int levelNodeCount = queue.size();
+                for (int i = 0; i < levelNodeCount; i++) {
+                    TreeNode node = queue.poll();
+                    if (direction) {
+                        list.add(node.val);
+                    } else {
+                        list.add(0, node.val);
+                    }
+                    if (node.left != null) {
+                        queue.add(node.left);
+                    }
+                    if (node.right != null) {
+                        queue.add(node.right);
                     }
                 }
                 result.add(list);
                 list = new LinkedList<>();
-                while (!queue2.isEmpty())
-                    queue1.offer(queue2.poll());
+                direction = !direction;
             }
         }
         return result;
     }
-    public static void main(String args[]){
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
+
+    public static void main(String args[]) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = null;
+        root.right.left = null;
+        root.right.right = new TreeNode(5);
         System.out.println(zigzagLevelOrder(root));
     }
 }
