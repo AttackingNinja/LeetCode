@@ -8,18 +8,26 @@ public class Solution {
         List<List<Integer>> results = new LinkedList<>();
         Arrays.sort(nums);
         for (int i = 0; i < length - 2; i++) {
-            int iL = i + 1;
-            int iR = length - 1;
             if (nums[i] > 0)
                 return results;
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int iL = i + 1;
+            int iR = length - 1;
             while (iL < iR) {
                 if (nums[i] + nums[iL] + nums[iR] == 0) {
                     List<Integer> result = new LinkedList<>();
                     result.add(nums[i]);
                     result.add(nums[iL]);
                     result.add(nums[iR]);
-                    if (!results.contains(result))
-                        results.add(result);
+                    results.add(result);
+                    while (iL < iR && nums[iL] == nums[iL + 1]) {
+                        iL++;
+                    }
+                    while (iL < iR && nums[iR] == nums[iR - 1]) {
+                        iR--;
+                    }
                     iL++;
                     iR--;
                 } else if (nums[i] + nums[iL] + nums[iR] < 0)
