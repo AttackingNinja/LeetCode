@@ -8,8 +8,14 @@ public class Solution {
         List<List<Integer>> results = new LinkedList<>();
         Arrays.sort(nums);
         for (int i = 0; i < length - 2; i++) {
-            if (nums[i] > 0)
+            int curMin = nums[i] + nums[i + 1] + nums[i + 2];
+            int curMax = nums[i] + nums[nums.length - 2] + nums[nums.length - 1];
+            if (curMin > 0) {
                 return results;
+            }
+            if (curMax < 0) {
+                continue;
+            }
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
