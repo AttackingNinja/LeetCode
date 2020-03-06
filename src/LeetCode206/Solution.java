@@ -11,22 +11,14 @@ class ListNode {
 }
 
 public class Solution {
-    ListNode recurse(ListNode fatherNode, ListNode childNode) {
-        if (childNode == null) {
-            return fatherNode;
-        }
-        ListNode temp = childNode.next;
-        childNode.next = fatherNode;
-        return recurse(childNode, temp);
-    }
-
     public ListNode reverseListByRecurse(ListNode head) {
-        ListNode headReverse = null;
-        if (head != null) {
-            headReverse = recurse(head, head.next);
-            head.next = null;
+        if (head == null || head.next == null) {
+            return head;
         }
-        return headReverse;
+        ListNode reverseHead = reverseListByRecurse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return reverseHead;
     }
 
     public ListNode reverseListByIteration(ListNode head) {
@@ -53,6 +45,6 @@ public class Solution {
         p.next = new ListNode(2);
         p = p.next;
         p.next = new ListNode(3);
-        solution.reverseListByIteration(head);
+        solution.reverseListByRecurse(head);
     }
 }
