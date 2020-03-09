@@ -2,17 +2,16 @@ package LeetCode26;
 
 public class Solution {
     public int removeDuplicates(int[] nums) {
-        int curIndex = 0;
         int i = 0;
-        while (i < nums.length) {
-            while (i < nums.length - 1 && nums[i] == nums[i + 1]) {
+        int j = 0;
+        while (j < nums.length) {
+            if (j == 0 || nums[j] != nums[i - 1]) {
+                nums[i] = nums[j];
                 i++;
             }
-            nums[curIndex] = nums[i];
-            curIndex++;
-            i++;
+            j++;
         }
-        return curIndex;
+        return i;
     }
 
     public static void main(String[] args) {
