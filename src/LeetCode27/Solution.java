@@ -1,15 +1,15 @@
 package LeetCode27;
 
-import java.util.Arrays;
-
 public class Solution {
     public int removeElement(int[] nums, int val) {
         int i = 0;
-        for (int j = 0; j < nums.length; j++) {
+        int j = 0;
+        while (j < nums.length) {
             if (nums[j] != val) {
                 nums[i] = nums[j];
                 i++;
             }
+            j++;
         }
         return i;
     }
